@@ -26,22 +26,7 @@ import webbrowser
 import oauth2 as oauth
 import os
 import shutil
-from httplib2 import ProxyInfo
-from httplib2.socks import PROXY_TYPE_HTTP
-
-
-def get_oauth_proxy(scheme):
-    proxy = get_proxy_config(scheme)
-    if proxy is None:
-        return None
-    proxy = urlparse.urlparse(proxy)
-    return ProxyInfo(
-        proxy_type=PROXY_TYPE_HTTP,
-        proxy_host=proxy.hostname,
-        proxy_port=proxy.port,
-        proxy_user=proxy.username or None,
-        proxy_pass=proxy.password or None,
-    )    
+from httplib2 import proxy_info_from_environment as get_oauth_proxy
 
 
 class TLSNetworkAccessManager(QNetworkAccessManager):
